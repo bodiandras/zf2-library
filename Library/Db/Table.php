@@ -19,7 +19,11 @@ class Db_Table  extends TableGateway
 	
 	public function __construct()
 	{
-		$this->_adapter = $adapter = Feature\GlobalAdapterFeature::getStaticAdapter();
+		if($this->adapter) {
+		  $this->_adapter = $adapter = $this->adapter;
+		} else {
+		  $this->_adapter = $adapter = Feature\GlobalAdapterFeature::getStaticAdapter();  
+		}        
 		$resultSetPrototype = new ResultSet();
 		$resultSetPrototype->setArrayObjectPrototype(new Db_Row($this->primaryKey, $this->table, $adapter));
 		$row = new $this->rowClass($this->primaryKey,  $this->table, $adapter);

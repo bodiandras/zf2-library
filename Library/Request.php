@@ -32,6 +32,14 @@ class Request extends \Zend\Http\PhpEnvironment\Request
         return $params;  
     }
     
+    public function getSegments()
+    {
+        $url = $this->getRequestUri();        
+        $segments = explode('/', $url);
+        unset($segments[0]);
+        return $segments;
+    }
+    
     private function _clone($request)
     {
         $objValues = get_object_vars($request); // return array of object values
